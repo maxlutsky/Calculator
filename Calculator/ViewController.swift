@@ -15,6 +15,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func textField1(_ sender: Any) {
+    }
+    
+    @IBAction func buttonAction(_ sender: Any) {
+        print("Test button")
+    }
 }
 
