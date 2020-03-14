@@ -9,17 +9,54 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
 
+    
+    @IBOutlet weak var number1: UITextField!
+    @IBOutlet weak var number2: UITextField!
+    
+    @IBOutlet weak var displayText: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-    @IBAction func textField1(_ sender: Any) {
-    }
     
-    @IBAction func buttonAction(_ sender: Any) {
-        print("Test button")
+//    @IBAction func firstField(_ sender: Any) {
+//              let a  = number1.text!
+//              let b  = number2.text!
+//              
+//              let sum = Int(a)! + Int(b)!
+//              
+//              
+//        
+//              displayText.text = String(sum)
+//    }
+//    @IBAction func secondField(_ sender: Any) {
+//              let a  = number1.text!
+//              let b  = number2.text!
+//              
+//              let sum = Int(a)! + Int(b)!
+//              
+//              
+//        
+//              displayText.text = String(sum)
+//    }
+    @IBAction func button(_ sender: Any) {
+                let a  = number1.text!
+                let b  = number2.text!
+                
+                let sum = Int(a)! + Int(b)!
+                
+                
+          
+                displayText.text = String(sum)
+                
     }
+
+    
+    
+    
 }
+
+
 
