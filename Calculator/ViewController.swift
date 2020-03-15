@@ -13,7 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var firstLine: UILabel!
     @IBOutlet weak var funcLine: UILabel!
     @IBOutlet weak var secondLine: UILabel!
-    
+    @IBOutlet weak var switchDarkMode: UISwitch!
+    @IBOutlet weak var labelDarkMode: UILabel!
     
     
     override func viewDidLoad() {
@@ -193,5 +194,21 @@ class ViewController: UIViewController {
         result()
         newLine()
     }
+    
+    @IBAction func switchDarkMode(_ sender: Any) {
+        if switchDarkMode.isOn{
+            self.view.backgroundColor = UIColor.black
+            labelDarkMode.textColor = UIColor.white
+            firstLine.textColor = UIColor.white
+            
+        }else{
+            self.view.backgroundColor = UIColor.white
+            labelDarkMode.textColor = UIColor.black
+            firstLine.textColor = UIColor.black
+            
+        }
+    
+    }
+    
 }
 
