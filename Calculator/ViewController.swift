@@ -7,19 +7,34 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class ViewController: UIViewController {
 
+
+    @IBOutlet weak var helloLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+
+        // Automatically sign in the user.
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         // Do any additional setup after loading the view.
+        
+        let googleUser = GIDSignIn.sharedInstance()?.currentUser
+
+        if googleUser != nil {
+            helloLabel.text = googleUser?.profile.name
+            
+        } else {
+        // present login screen here
+
+        }
     }
 
-    @IBAction func textField1(_ sender: Any) {
-    }
     
-    @IBAction func buttonAction(_ sender: Any) {
-        print("Test button")
-    }
 }
+
 
