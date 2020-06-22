@@ -7,4 +7,5 @@ target 'Calculator' do
 
   # Pods for Calculator
   pod 'GoogleSignIn'
+  pod 'FBSDKLoginKit'
 end

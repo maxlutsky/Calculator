@@ -8,33 +8,46 @@
 
 import UIKit
 import GoogleSignIn
+import FBSDKLoginKit
+
 
 class ViewController: UIViewController {
 
 
+
+    @IBOutlet weak var loginButton: FBLoginButton!
     @IBOutlet weak var helloLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
-
-        // Automatically sign in the user.
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-        // Do any additional setup after loading the view.
         
+        setGoogleName()
+        
+
+    }
+    
+    
+    func setGoogleName(){
         let googleUser = GIDSignIn.sharedInstance()?.currentUser
 
         if googleUser != nil {
             helloLabel.text = googleUser?.profile.name
             
         } else {
-        // present login screen here
+            helloLabel.text = ""// present login screen here
 
         }
     }
-
     
+
+    @IBAction func logOut(_ sender: Any) {
+        GIDSignIn.sharedInstance().signOut()
+        setGoogleName()
+    }
 }
+
 
 

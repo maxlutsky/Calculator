@@ -15,33 +15,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UMS-Rb-mqZ" customClass="GIDSignInButton">
-                                <rect key="frame" x="109" y="301" width="157" height="65"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UMS-Rb-mqZ" customClass="GIDSignInButton">
+                                <rect key="frame" x="109" y="100" width="157" height="65"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="157" id="a9L-XX-vlY"/>
-                                    <constraint firstAttribute="height" constant="65" id="cCo-gN-yUt"/>
-                                </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FuQ-PZ-9XN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FuQ-PZ-9XN">
                                 <rect key="frame" x="26" y="40" width="323" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zt5-ee-rjP">
+                                <rect key="frame" x="10" y="627" width="355" height="30"/>
+                                <state key="normal" title="Log Out">
+                                    <color key="titleColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="logOut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YVc-TQ-t4Q"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jha-CG-oV4" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="164.5" y="318.5" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="UMS-Rb-mqZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="8vk-9X-2Re"/>
+                            <constraint firstItem="Jha-CG-oV4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="48M-0d-qvq"/>
                             <constraint firstItem="FuQ-PZ-9XN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="40" id="9dm-Jm-ZHA"/>
-                            <constraint firstItem="UMS-Rb-mqZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="e9u-Oy-whs"/>
+                            <constraint firstItem="UMS-Rb-mqZ" firstAttribute="top" secondItem="FuQ-PZ-9XN" secondAttribute="bottom" constant="20" id="ZpH-3r-vwL"/>
+                            <constraint firstItem="Jha-CG-oV4" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="hYB-4t-L9W"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zt5-ee-rjP" secondAttribute="bottom" constant="10" id="l3r-Gk-w2n"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FuQ-PZ-9XN" secondAttribute="trailing" constant="10" id="lvd-fG-M3S"/>
+                            <constraint firstItem="zt5-ee-rjP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="n07-mg-l8U"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zt5-ee-rjP" secondAttribute="trailing" constant="10" id="tdB-Oq-mN6"/>
                             <constraint firstItem="FuQ-PZ-9XN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="yjl-Un-P83"/>
+                            <constraint firstItem="UMS-Rb-mqZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zDM-PB-vai"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="helloLabel" destination="FuQ-PZ-9XN" id="ZJQ-R3-NTf"/>
+                        <outlet property="loginButton" destination="Jha-CG-oV4" id="Rr7-N9-9i3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
