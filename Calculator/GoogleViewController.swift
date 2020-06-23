@@ -32,8 +32,9 @@ class GoogleViewController: UIViewController {
     
     @IBAction func signOut(_ sender: Any) {
         GIDSignIn.sharedInstance().signOut()
-        let VC = storyboard?.instantiateViewController(identifier: "ViewController") as! ViewController
-        navigationController?.pushViewController(VC, animated: true)
+        guard let vc = self.presentingViewController else { return }
+        vc.dismiss(animated: true, completion: nil)
+
     }
     
     

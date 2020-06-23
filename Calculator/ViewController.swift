@@ -11,36 +11,36 @@ import GoogleSignIn
 import FBSDKLoginKit
 
 
-class ViewController: UIViewController {
-
-
-
+class ViewController: UIViewController, GIDSignInDelegate {
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if(error == nil){
+            print(user)
+            openGooglePage()
+        }else{
+            print(error)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance()?.delegate = self
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-        
-        
-
     }
     
-    
-
     @IBAction func signInWithGoogle(_ sender: Any) {
         let googleUser = GIDSignIn.sharedInstance()?.currentUser
-        let GoogleVC = storyboard?.instantiateViewController(identifier: "GoogleViewController") as! GoogleViewController
-        if googleUser != nil {
-            navigationController?.pushViewController(GoogleVC, animated: true)
-
-        } else {
+        if(googleUser == nil){
             GIDSignIn.sharedInstance().signIn()
-            navigationController?.pushViewController(GoogleVC, animated: true)
+        }else{
+            openGooglePage()
         }
     }
     
+    func openGooglePage(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let googleVC = storyboard.instantiateViewController(withIdentifier: "GoogleViewController")
+        self.present(googleVC, animated: true, completion: nil)
+    }
 }
-
-
-
