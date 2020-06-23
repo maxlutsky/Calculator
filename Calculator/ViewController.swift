@@ -15,38 +15,31 @@ class ViewController: UIViewController {
 
 
 
-    @IBOutlet weak var loginButton: FBLoginButton!
-    @IBOutlet weak var helloLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
-        setGoogleName()
         
 
     }
     
     
-    func setGoogleName(){
+
+    @IBAction func signInWithGoogle(_ sender: Any) {
         let googleUser = GIDSignIn.sharedInstance()?.currentUser
-
+        let GoogleVC = storyboard?.instantiateViewController(identifier: "GoogleViewController") as! GoogleViewController
         if googleUser != nil {
-            helloLabel.text = googleUser?.profile.name
-            
-        } else {
-            helloLabel.text = ""// present login screen here
+            navigationController?.pushViewController(GoogleVC, animated: true)
 
+        } else {
+            GIDSignIn.sharedInstance().signIn()
+            navigationController?.pushViewController(GoogleVC, animated: true)
         }
     }
     
-
-    @IBAction func logOut(_ sender: Any) {
-        GIDSignIn.sharedInstance().signOut()
-        setGoogleName()
-    }
 }
 
 

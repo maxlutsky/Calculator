@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B5BA13F0B60BE4095FF1ED8 /* Pods_Calculator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 239C22E9B896F86B8560DC41 /* Pods_Calculator.framework */; };
+		503E3C7E24A20028006FE69D /* GoogleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503E3C7D24A20028006FE69D /* GoogleViewController.swift */; };
 		5043303A241049B4005C5AE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50433039241049B4005C5AE3 /* AppDelegate.swift */; };
 		5043303C241049B4005C5AE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5043303B241049B4005C5AE3 /* SceneDelegate.swift */; };
 		5043303E241049B4005C5AE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5043303D241049B4005C5AE3 /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		239C22E9B896F86B8560DC41 /* Pods_Calculator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calculator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		503E3C7D24A20028006FE69D /* GoogleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleViewController.swift; sourceTree = "<group>"; };
 		50433036241049B4005C5AE3 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50433039241049B4005C5AE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5043303B241049B4005C5AE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				5043303B241049B4005C5AE3 /* SceneDelegate.swift */,
 				5043303D241049B4005C5AE3 /* ViewController.swift */,
 				5043303F241049B4005C5AE3 /* Main.storyboard */,
+				503E3C7D24A20028006FE69D /* GoogleViewController.swift */,
 				50433042241049B6005C5AE3 /* Assets.xcassets */,
 				50433044241049B6005C5AE3 /* LaunchScreen.storyboard */,
 				50433047241049B6005C5AE3 /* Info.plist */,
@@ -225,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5043303E241049B4005C5AE3 /* ViewController.swift in Sources */,
+				503E3C7E24A20028006FE69D /* GoogleViewController.swift in Sources */,
 				5043303A241049B4005C5AE3 /* AppDelegate.swift in Sources */,
 				5043303C241049B4005C5AE3 /* SceneDelegate.swift in Sources */,
 			);
