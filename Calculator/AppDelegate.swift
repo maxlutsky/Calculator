@@ -7,19 +7,19 @@
 //
 
 import UIKit
-import GoogleSignIn
-import FBSDKCoreKit
+//import GoogleSignIn
+//import FBSDKCoreKit
 
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        GIDSignIn.sharedInstance().clientID = "381128262339-qt4hi9gi0ftpem91o6kgr0vaf5le53st.apps.googleusercontent.com"
-        ApplicationDelegate.shared.application(
-            application,
-            didFinishLaunchingWithOptions: launchOptions
-        )
+//        GIDSignIn.sharedInstance().clientID = "381128262339-qt4hi9gi0ftpem91o6kgr0vaf5le53st.apps.googleusercontent.com"
+//        ApplicationDelegate.shared.application(
+//            application,
+//            didFinishLaunchingWithOptions: launchOptions
+//        )
         return true
     }
     
