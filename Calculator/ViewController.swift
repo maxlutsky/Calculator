@@ -13,6 +13,7 @@ import FBSDKLoginKit
 
 class ViewController: UIViewController, GIDSignInDelegate {
     
+    @IBOutlet weak var loginButton: FBLoginButton!
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if(error == nil){
             print(user)
@@ -27,6 +28,7 @@ class ViewController: UIViewController, GIDSignInDelegate {
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance()?.delegate = self
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        loginButton.permissions = ["public_profile", "email"]
     }
     
     @IBAction func signInWithGoogle(_ sender: Any) {
@@ -42,5 +44,22 @@ class ViewController: UIViewController, GIDSignInDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let googleVC = storyboard.instantiateViewController(withIdentifier: "GoogleViewController")
         self.present(googleVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func test(_ sender: Any) {
+        guard let accessToken = FBSDKLoginKit.AccessToken.current else { return }
+        let graphRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
+                                                      parameters: ["fields": "name, email"],
+                                                      tokenString: accessToken.tokenString,
+                                                      version: nil,
+                                                      httpMethod: .get)
+        graphRequest.start { (connection, result, error) -> Void in
+            if error == nil {
+                print("result \(result)")
+            }
+            else {
+                print("error \(error)")
+            }
+        }
     }
 }
