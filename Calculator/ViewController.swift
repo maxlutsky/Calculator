@@ -7,85 +7,97 @@
 //
 
 import UIKit
-//import GoogleSignIn
-//import FBSDKLoginKit
+import GoogleSignIn
+import FBSDKLoginKit
 
 
 class ViewController: UIViewController {
     
-    let textView:UITextView = {
-//        let textView = UITextView(frame: CGRect(x: 50, y: 50, width: 200, height: 50))
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text =
-        "Lorem ipsum "
-        textView.backgroundColor = .blue
-        return textView
-    }()
-    
-        let textView2:UITextView = {
-    //        let textView = UITextView(frame: CGRect(x: 50, y: 50, width: 200, height: 50))
-            let textView2 = UITextView()
-            textView2.translatesAutoresizingMaskIntoConstraints = false
-            textView2.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            textView2.backgroundColor = .blue
-            
-            return textView2
-        }()
-    
-    let scrollView:UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = .green
-        return scrollView
-    }()
-    
-    let image:UIImageView = {
-        let image = UIImageView(image: UIImage(named: "elon"))
-        return image
-    }()
-    
-    let button: UIButton = {
+    let googleButtonSignIn: UIButton = {
         let button = UIButton()
-        button.setTitle("Launch", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Log in with Google", for: .normal)
+        button.backgroundColor = .systemRed
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return button
+    }()
+    
+    let googleButtonSignOut: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Sign out from Google", for: .normal)
+        button.backgroundColor = .systemRed
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        return button
+    }()
+    
+    let facebookButtonSignIn: FBLoginButton = {
+        let button = FBLoginButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let buttonHolder: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .lightGray
+        return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .red
-        self.view.addSubview(textView)
-        setButton()
-        contraintsSetter()
+        self.view.backgroundColor = .darkGray
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        viewBuilder()
+        googleButtonSignIn.addTarget(self, action: #selector(googleSignIn), for: .touchUpInside)
+        googleButtonSignOut.addTarget(self, action: #selector(googleSignOut), for: .touchUpInside)
+
+    }
+    
+    func viewBuilder(){
+        self.view.addSubview(buttonHolder)
+        self.view.addSubview(googleButtonSignOut)
+        buttonHolder.addSubview(facebookButtonSignIn)
+        buttonHolder.addSubview(googleButtonSignIn)
         
-        self.view.addSubview(scrollView)
-        scrollView.anchor(top: button.bottomAnchor, paddingTop: 20, bottom: self.view.bottomAnchor, paddingBottom: 0, left: self.view.leftAnchor, paddingLeft: 0, right: self.view.rightAnchor, paddingRight: 0, width: 0, height: 0)
+        buttonHolder.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        buttonHolder.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        buttonHolder.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 9/10).isActive = true
+        
+        googleButtonSignIn.topAnchor.constraint(equalTo: buttonHolder.topAnchor, constant: 20).isActive = true
+        googleButtonSignIn.centerXAnchor.constraint(equalTo: buttonHolder.centerXAnchor).isActive = true
+        googleButtonSignIn.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        googleButtonSignIn.widthAnchor.constraint(equalTo: buttonHolder.widthAnchor, multiplier: 9/10).isActive = true
+        
+        facebookButtonSignIn.topAnchor.constraint(equalTo: googleButtonSignIn.bottomAnchor, constant: 10).isActive = true
+        facebookButtonSignIn.centerXAnchor.constraint(equalTo: buttonHolder.centerXAnchor).isActive = true
+        facebookButtonSignIn.widthAnchor.constraint(equalTo: buttonHolder.widthAnchor, multiplier: 9/10).isActive = true
+        facebookButtonSignIn.bottomAnchor.constraint(equalTo: buttonHolder.bottomAnchor, constant: -20).isActive = true
         
         
+        googleButtonSignOut.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
+        googleButtonSignOut.centerXAnchor.constraint(equalTo: buttonHolder.centerXAnchor).isActive = true
+        googleButtonSignOut.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        googleButtonSignOut.widthAnchor.constraint(equalTo: buttonHolder.widthAnchor, multiplier: 9/10).isActive = true
         
-        self.scrollView.addSubview(textView2)
-//        textView2.anchor(top: scrollView.topAnchor, paddingTop: 0, bottom: nil, paddingBottom: 0, left: scrollView.leftAnchor, paddingLeft: 0, right: scrollView.rightAnchor, paddingRight: 0, width: 0, height: 1200)
-        scrollView.contentSize = CGSize(width: self.view.frame.width, height: 1400)
-        
-        textView2.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        textView2.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        textView2.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        textView2.heightAnchor.constraint(equalToConstant: 250).isActive = true
         
     }
     
-    func contraintsSetter(){
-        textView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        textView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        textView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        textView.heightAnchor.constraint(equalToConstant: 250).isActive = true
-        
-        
+    
+    @objc func googleSignIn(){
+        let googleUser = GIDSignIn.sharedInstance()?.currentUser
+        if(googleUser == nil){
+            GIDSignIn.sharedInstance().signIn()
+        }else{
+            print(googleUser)
+        }
     }
     
-    func setButton(){
-        self.view.addSubview(button)
-        button.anchor(top: textView.bottomAnchor, paddingTop: 20, bottom: nil, paddingBottom: 0, left: self.view.leftAnchor, paddingLeft: 20, right: self.view.rightAnchor, paddingRight: 20, width: 0, height: 40)
+    @objc func googleSignOut(){
+        GIDSignIn.sharedInstance().signOut()
+
     }
+    
+    
 }
