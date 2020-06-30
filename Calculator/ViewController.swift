@@ -11,7 +11,16 @@ import GoogleSignIn
 import FBSDKLoginKit
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, GIDSignInDelegate {
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if(error == nil){
+            let googleUser = GIDSignIn.sharedInstance()?.currentUser
+            openGooglePage(name: googleUser?.profile.name, id: googleUser?.profile.email)
+        }else{
+
+        }
+    }
     
     let googleButtonSignIn: UIButton = {
         let button = UIButton()
@@ -21,19 +30,11 @@ class ViewController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return button
     }()
-    
-    let googleButtonSignOut: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Sign out from Google", for: .normal)
-        button.backgroundColor = .systemRed
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        return button
-    }()
-    
+
     let facebookButtonSignIn: FBLoginButton = {
         let button = FBLoginButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .green
         return button
     }()
     
@@ -48,16 +49,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .darkGray
         GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance()?.delegate = self
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         viewBuilder()
         googleButtonSignIn.addTarget(self, action: #selector(googleSignIn), for: .touchUpInside)
-        googleButtonSignOut.addTarget(self, action: #selector(googleSignOut), for: .touchUpInside)
-
     }
     
     func viewBuilder(){
         self.view.addSubview(buttonHolder)
-        self.view.addSubview(googleButtonSignOut)
         buttonHolder.addSubview(facebookButtonSignIn)
         buttonHolder.addSubview(googleButtonSignIn)
         
@@ -74,30 +73,46 @@ class ViewController: UIViewController {
         facebookButtonSignIn.centerXAnchor.constraint(equalTo: buttonHolder.centerXAnchor).isActive = true
         facebookButtonSignIn.widthAnchor.constraint(equalTo: buttonHolder.widthAnchor, multiplier: 9/10).isActive = true
         facebookButtonSignIn.bottomAnchor.constraint(equalTo: buttonHolder.bottomAnchor, constant: -20).isActive = true
-        
-        
-        googleButtonSignOut.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
-        googleButtonSignOut.centerXAnchor.constraint(equalTo: buttonHolder.centerXAnchor).isActive = true
-        googleButtonSignOut.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        googleButtonSignOut.widthAnchor.constraint(equalTo: buttonHolder.widthAnchor, multiplier: 9/10).isActive = true
-        
-        
     }
     
+    func openGooglePage(name: String?, id:String?){
+        let GoogleVC = GoogleViewController()
+        GoogleVC.setupData(name: name, id: id)
+        GoogleVC.modalPresentationStyle = .fullScreen
+        present(GoogleVC, animated: true, completion: nil)
+    }
+    
+    func requestFacebookData(){
+        facebookButtonSignIn.permissions = ["public_profile", "email"]
+        guard let accessToken = FBSDKLoginKit.AccessToken.current else { return }
+        let graphRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
+                                                      parameters: ["fields": "name, email"],
+                                                      tokenString: accessToken.tokenString,
+                                                      version: nil,
+                                                      httpMethod: .get)
+        graphRequest.start { (connection, result, error) -> Void in
+            if error == nil {
+                print("result \(result)")
+            }
+            else {
+                print("error \(error)")
+            }
+        }
+    }
     
     @objc func googleSignIn(){
         let googleUser = GIDSignIn.sharedInstance()?.currentUser
         if(googleUser == nil){
             GIDSignIn.sharedInstance().signIn()
         }else{
-            print(googleUser)
+            openGooglePage(name: googleUser?.profile.name, id: googleUser?.profile.email)
         }
     }
     
-    @objc func googleSignOut(){
-        GIDSignIn.sharedInstance().signOut()
+    
+}
 
-    }
-    
-    
+struct User{
+    let name: String
+    let email: String
 }
