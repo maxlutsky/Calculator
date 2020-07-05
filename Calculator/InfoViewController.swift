@@ -1,5 +1,5 @@
 //
-//  GoogleViewController.swift
+//  InfoViewController.swift
 //  Calculator
 //
 //  Created by Max on 04/03/2020.
@@ -11,9 +11,9 @@ import GoogleSignIn
 import FBSDKLoginKit
 
 
-class GoogleViewController: UIViewController {
+class InfoViewController: UIViewController {
     
-    let googleButtonSignOut: UIButton = {
+    let buttonSignOut: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Sign out from Google", for: .normal)
@@ -42,7 +42,7 @@ class GoogleViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .darkGray
         viewBuilder()
-        googleButtonSignOut.addTarget(self, action: #selector(googleSignOut), for: .touchUpInside)
+        buttonSignOut.addTarget(self, action: #selector(buttonSignOutFunc), for: .touchUpInside)
 //        let googleUser = GIDSignIn.sharedInstance()?.currentUser
 //        nameLabel.text = googleUser?.profile.name
 //        emailLabel.text = googleUser?.profile.email
@@ -54,7 +54,7 @@ class GoogleViewController: UIViewController {
     }
     
     func viewBuilder(){
-        self.view.addSubview(googleButtonSignOut)
+        self.view.addSubview(buttonSignOut)
         self.view.addSubview(nameLabel)
         self.view.addSubview(emailLabel)
         
@@ -68,13 +68,13 @@ class GoogleViewController: UIViewController {
         emailLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
         emailLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         
-        googleButtonSignOut.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -120).isActive = true
-        googleButtonSignOut.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        googleButtonSignOut.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        googleButtonSignOut.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 9/10).isActive = true
+        buttonSignOut.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -120).isActive = true
+        buttonSignOut.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        buttonSignOut.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        buttonSignOut.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 9/10).isActive = true
     }
     
-    @objc func googleSignOut(){
+    @objc func buttonSignOutFunc(){
         GIDSignIn.sharedInstance().signOut()
         guard let vc = self.presentingViewController else { return }
         vc.dismiss(animated: true, completion: nil)

@@ -16,7 +16,8 @@ class ViewController: UIViewController, GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if(error == nil){
             let googleUser = GIDSignIn.sharedInstance()?.currentUser
-            openGooglePage(name: googleUser?.profile.name, id: googleUser?.profile.email)
+            let user = User(name: googleUser?.profile.name ?? "", email: googleUser?.profile.email ?? "")
+            openInfoPage(user: user)
         }else{
 
         }
@@ -75,9 +76,9 @@ class ViewController: UIViewController, GIDSignInDelegate {
         facebookButtonSignIn.bottomAnchor.constraint(equalTo: buttonHolder.bottomAnchor, constant: -20).isActive = true
     }
     
-    func openGooglePage(name: String?, id:String?){
-        let GoogleVC = GoogleViewController()
-        GoogleVC.setupData(name: name, id: id)
+    func openInfoPage(user: User){
+        let GoogleVC = InfoViewController()
+        GoogleVC.setupData(name: user.name, id: user.email)
         GoogleVC.modalPresentationStyle = .fullScreen
         present(GoogleVC, animated: true, completion: nil)
     }
@@ -102,17 +103,14 @@ class ViewController: UIViewController, GIDSignInDelegate {
     
     @objc func googleSignIn(){
         let googleUser = GIDSignIn.sharedInstance()?.currentUser
+        let user = User(name: googleUser?.profile.name ?? "", email: googleUser?.profile.email ?? "")
         if(googleUser == nil){
             GIDSignIn.sharedInstance().signIn()
         }else{
-            openGooglePage(name: googleUser?.profile.name, id: googleUser?.profile.email)
+            openInfoPage(user: user)
         }
     }
     
     
 }
 
-struct User{
-    let name: String
-    let email: String
-}
